@@ -1,0 +1,37 @@
+<html>
+<head>
+
+</head>
+<body>
+<center>
+<h1>PARS prototype Login Page</h1>
+
+<input type="text" id="username" placeholder="test"/> <br/>
+<input type="password" id="password" placeholder="123"/> <br/>
+<input type="button" value="Logon" onClick="clicked()"/> <br/>
+</center>
+<script>
+
+//username and password authentication
+function clicked(){
+	var user = document.getElementById('username');
+	var pass = document.getElementById('password');
+
+	var testuser = "test";
+	var testpass = "123";
+	
+	if(user.value == testuser){
+		if(pass.value == testpass){
+			window.alert("You are logged in as " + user.value);
+			window.open("index.html")
+		} else {
+		window.alert("incorrect username or password!")
+		
+		}
+	} else {
+		window.alert("incorrect username or password!")
+	}
+}
+</script>
+</body>
+</html>

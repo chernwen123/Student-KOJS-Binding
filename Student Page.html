@@ -1,0 +1,63 @@
+<style>
+.green{color:green}
+.red{color:red}
+.black{color:black}
+</style>
+<h1>Student Manager Page Spring 4390, Spring 2015</h1>
+
+<p>Number of Students<span data-bind="text:students().length"></span></p>
+
+<ul data-bind="foreach:students">
+	<li data-bind="css:colorStudent">
+		<input data-bind="value:name"/>
+		<input type="checkbox" data-bind="checked:currentStudent"/>
+		<input  data-bind="value:comOut, visible:currentStudent"/> &nbsp;&nbsp;&nbsp;
+		<span>Score</span><input data-bind="value:scoreNumber" type="number"/>
+		<span>Date of Exam</span><input type="date" data-bind="value:examDate"/>
+		<button data-bind="click:removeStudent">Remove Student</button>
+	</li>
+</ul>
+<button data-bind="click:addStudent, enable:students().length<13">Add New Student</button>
+
+<script src="knockout-3.3.0.js"></script>
+<script src="knockout.mapping-2.4.1.js"></script>
+<script>
+// json
+function Studen(){
+return{
+	name:'Student Name',
+	currentStudent:true,
+	comOut:'Comment on Outcome',
+	examDate:'',
+	scoreNumber:'Input Score'
+	}
+}
+
+
+
+//converts to observable student object
+function Student(stu){
+	var map = ko.mapping.fromJS(stu);
+	map.removeStudent=function(){
+		obj.students.remove(map)
+	}
+	map.colorStudent=ko.computed(function(){
+		var grade = map.scoreNumber();
+		if(grade>89)return 'green';
+		if (grade>69)return 'black';
+		if (grade<70)return 'red';
+	})
+	return map;
+}
+
+
+var obj= {
+	students:ko.observableArray([new Student(new Studen())])
+};
+obj.addStudent=function(){
+obj.students.push(new Student(new Studen()));
+}
+
+ko.applyBindings(obj);
+</script>
+</script>
